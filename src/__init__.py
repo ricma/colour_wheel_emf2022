@@ -22,7 +22,7 @@ class ColourWheelApp(TextApp):
         self._max_val = 5.0   # in units of g = 9.81 ms⁻²
         self._min_acc_observed = 640.0
         self._max_acc_observed = 0.0
-        self.update_rate_Hz = 10.0   # refresh rate
+        self.update_rate_Hz = 150.0  # refresh rate
 
     def get_acceleration(self):
         """
