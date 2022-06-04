@@ -1,7 +1,7 @@
 """
 An app to show current acceleration as colour using the LED of the badge
 """
-from tidal import color565
+from tidal import color565, hsv_to_rgb, display
 from app import TextApp
 import accelerometer
 from math import sqrt
@@ -19,7 +19,7 @@ class ColourWheelApp(TextApp):
         """
         super(ColourWheelApp, self).__init__(*args, **kwargs)
         self._min_val = 0.0
-        self._max_val = 20.0   # in units of g = 9.81 ms⁻²
+        self._max_val = 5.0   # in units of g = 9.81 ms⁻²
 
     def get_acceleration(self):
         """
@@ -35,11 +35,15 @@ class ColourWheelApp(TextApp):
 
     def get_color(self, value):
         """
-        get a color based on a given value
+        get a color based on a given value linear in the interval between
+          (self._min_val, self._max_val)
         """
         scaled = (value - self._min_val) / (self._max_val - self._min_val)
-        # TODO: Add color here
-        return color565(0xfd, 0x00, 0x00)
+        color_hsv = (scaled, 1, 1)
+        color_rgb = hsv_to_rgb(*color_hsv)
+        color = color565(*color_rgb)
+
+        return color
 
     def set_display_color(self, value):
         """
@@ -51,19 +55,19 @@ class ColourWheelApp(TextApp):
             the current acceleration in units of g
         """
         c = self.get_color(value)
-        # TODO: Set display color
+        display.fill(c)
 
     def on_activate(self):
         super().on_activate() # This will clear the screen by calling TextWindow.redraw()
 
         # register a callback to read out the accelerometer
-        def update_LED():
+        def update_screen():
             self.window.redraw()
             a = self.get_acceleration()
             self.set_display_color(a)
             self.window.println(f"{a}")
 
-        self.timer = self.periodic(1_000, update_LED)
+        self.timer = self.periodic(100, update_screen)
         self.window.println("Printing")
         self.window.println("acceleration ...")
 
