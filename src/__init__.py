@@ -17,6 +17,7 @@ class ColourWheelApp(TextApp):
         """
         Set min and max values for the color bar
         """
+        super(ColourWheelApp, self).__init__(*args, **kwargs)
         self._min_val = 0.0
         self._max_val = 20.0   # in units of g = 9.81 ms⁻²
 
