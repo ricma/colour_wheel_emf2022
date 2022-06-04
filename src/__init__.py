@@ -22,6 +22,7 @@ class ColourWheelApp(TextApp):
         self._max_val = 5.0   # in units of g = 9.81 ms⁻²
         self._min_acc_observed = 640.0
         self._max_acc_observed = 0.0
+        self.update_rate_Hz = 10.0   # refresh rate
 
     def get_acceleration(self):
         """
@@ -73,7 +74,8 @@ class ColourWheelApp(TextApp):
             self.set_display_color(a)
             self.window.println(f"{self._min_acc_observed:.2f} <= {a:.2f} <= {self._max_acc_observed:.2f}")
 
-        self.timer = self.periodic(100, update_screen)
+        self.timer = self.periodic(
+            1_000 / self.update_rate_Hz, update_screen)
         self.window.println("Printing")
         self.window.println("acceleration ...")
 
