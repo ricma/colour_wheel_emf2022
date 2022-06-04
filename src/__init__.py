@@ -1,8 +1,10 @@
 """
 An app to show current acceleration as colour using the LED of the badge
 """
-from tidal import color565, RED
+from tidal import color565
 from app import TextApp
+import accelerometer
+from math import sqrt
 
 class ColourWheelApp(TextApp):
     TITLE = "Colour Wheel"
@@ -13,8 +15,14 @@ class ColourWheelApp(TextApp):
     def get_acceleration(self):
         """
         return the magnitude of the acceleration
+
+        See Also
+        --------
+        [[file:../../TiDAL-Firmware/modules/post.py::x,y,z = accelerometer.get_xyz()]]:
+            Provides acceleration in units of g
         """
-        return 9.81
+        a_x, a_y, a_z = accelerometer.get_xyz()
+        return sqrt(a_x * a_x + a_y * a_y + a_z * a_z)
 
     def on_activate(self):
         super().on_activate() # This will clear the screen by calling TextWindow.redraw()
