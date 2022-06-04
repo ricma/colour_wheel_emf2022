@@ -2,6 +2,9 @@
 
 A colourful spinning experience for the EMF Badge
 
+* Development
+
+See [[file:src/README.org][in the src subdirectory]].
 
 # Local Variables:
 # ispell-local-dictionary: "british"

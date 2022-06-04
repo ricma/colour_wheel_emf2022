@@ -1,0 +1,6 @@
+A log of some of the development steps.
+
+* TODO Reading the Accelerometer
+* TODO Setting the LED
+* TODO [#C] Add GUI for Maximum Acceleration
+* TODO [#C] Incorporate g
