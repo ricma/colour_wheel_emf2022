@@ -6,6 +6,7 @@ from app import TextApp
 import accelerometer
 from math import sqrt
 
+
 class ColourWheelApp(TextApp):
     TITLE = "Colour Wheel"
     # Solzarized dark-like colours.
