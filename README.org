@@ -6,6 +6,17 @@ A colourful spinning experience for the EMF Badge
 
 See [[file:src/README.org][in the src subdirectory]].
 
+* Copying the App onto the Badge
+
+Following
+[[https://github.com/emfcamp/tidal-docs/blob/main/AppQuickstart.md]]
+we do
+#+begin_src shell-script
+  alias badge='python3 ../TiDAL-Firmware/micropython/tools/pyboard.py --no-soft-reset -d /dev/ttyACM0 -f'
+  badge mkdir :/apps/colour_wheel
+  badge cp src/__init__.py :/apps/colour_wheel/__init__.py
+#+end_src
+
 # Local Variables:
 # ispell-local-dictionary: "british"
 # eval: (flyspell-mode t)
