@@ -69,10 +69,12 @@ class ColourWheelApp(TextApp):
             a = self.get_acceleration()
             self._min_acc_observed = min(
                 self._min_acc_observed, a)
-            self._max_acc_observed = min(
+            self._max_acc_observed = max(
                 self._max_acc_observed, a)
             self.set_display_color(a)
-            self.window.println(f"{self._min_acc_observed:.2f} <= {a:.2f} <= {self._max_acc_observed:.2f}")
+            self.window.println(f"{self._min_acc_observed:.2f} <=")
+            self.window.println(f"{a:.2f} <=")
+            self.window.println(f"{self._max_acc_observed:.2f}")
 
         self.timer = self.periodic(
             1_000 / self.update_rate_Hz, update_screen)
