@@ -42,7 +42,7 @@ class ColourWheelApp(TextApp):
           (self._min_val, self._max_val)
         """
         scaled = (value - self._min_val) / (self._max_val - self._min_val)
-        color_hsv = (scaled, 1, 1)
+        color_hsv = (min(scaled, 1), 1, 1)
         color_rgb = hsv_to_rgb(*color_hsv)
         color = color565(*color_rgb)
 
