@@ -15,6 +15,7 @@ we do
   alias badge='python3 ../TiDAL-Firmware/micropython/tools/pyboard.py --no-soft-reset -d /dev/ttyACM0 -f'
   badge mkdir :/apps/colour_wheel
   badge cp src/__init__.py :/apps/colour_wheel/__init__.py
+  badge ls :apps/colour_wheel
 #+end_src
 
 # Local Variables:

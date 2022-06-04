@@ -18,13 +18,15 @@ class ColourWheelApp(TextApp):
 
     def on_activate(self):
         super().on_activate() # This will clear the screen by calling TextWindow.redraw()
-        self.window.println("Hallo Welt!")
 
         # register a callback to read out the accelerometer
         def update_LED():
-            print(f"Current acceleration: {self.get_acceleration()}")
+            self.window.redraw()
+            self.window.println(f"{self.get_acceleration()}")
 
-        self.timer = self.periodic(100, update_LED)
+        self.timer = self.periodic(1_000, update_LED)
+        self.window.println("Printing")
+        self.window.println("acceleration ...")
 
     def on_deactivate(self):
         """
