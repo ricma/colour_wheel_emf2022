@@ -41,7 +41,9 @@ class ColourWheelApp(TextApp):
         get a color based on a given value linear in the interval between
           (self._min_val, self._max_val)
         """
-        scaled = (value - self._min_val) / (self._max_val - self._min_val)
+        # We multiply with 0.80 to not get to red at the upper end of
+        # the color scale
+        scaled = 0.80 * (value - self._min_val) / (self._max_val - self._min_val)
         color_hsv = (min(scaled, 1), 1, 1)
         color_rgb = hsv_to_rgb(*color_hsv)
         color = color565(*color_rgb)
