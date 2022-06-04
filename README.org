@@ -1,0 +1,10 @@
+* Colour Wheel
+
+A colourful spinning experience for the EMF Badge
+
+
+# Local Variables:
+# ispell-local-dictionary: "british"
+# eval: (flyspell-mode t)
+# eval: (flyspell-buffer)
+# End:
