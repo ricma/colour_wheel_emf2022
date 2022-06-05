@@ -46,9 +46,7 @@ class ColourWheelApp(TextApp):
         scaled = 0.80 * (value - self._min_val) / (self._max_val - self._min_val)
         color_hsv = (min(scaled, 1), 1, 1)
         color_rgb = hsv_to_rgb(*color_hsv)
-        color = color565(*color_rgb)
-
-        return color
+        return color_rgb
 
     def set_display_color(self, value):
         """
@@ -59,7 +57,7 @@ class ColourWheelApp(TextApp):
         value : double
             the current acceleration in units of g
         """
-        c = self.get_color(value)
+        c = color565(*self.get_color(value))
         display.fill(c)
 
     def on_activate(self):
