@@ -1,7 +1,7 @@
 """
 An app to show current acceleration as colour using the LED of the badge
 """
-from tidal import color565, hsv_to_rgb, display
+from tidal import color565, hsv_to_rgb, display, led, led_power_on
 from app import TextApp
 import accelerometer
 from math import sqrt
@@ -23,6 +23,7 @@ class ColourWheelApp(TextApp):
         self._min_acc_observed = 640.0
         self._max_acc_observed = 0.0
         self.update_rate_Hz = 150.0  # refresh rate
+        self.led = led
 
     def get_acceleration(self):
         """
@@ -60,6 +61,25 @@ class ColourWheelApp(TextApp):
         c = color565(*self.get_color(value))
         display.fill(c)
 
+    def set_LED_depending_on_angle(self):
+        """
+        See Also
+        --------
+        [[file:../../TiDAL-Firmware/modules/torch/__init__.py::class Torch]]:
+            Code switching LED on and off
+        [[file:../../TiDAL-Firmware/micropython/examples/ledangle.py::def led_angle]]:
+            switching depending on angle of acceleration
+        """
+        # get x-axis
+        x, _, _ = accelerometer.get_xyz()
+        # turn on LEDs depending on angle
+        if x < -3:
+            led_power_on(True)
+        elif x > 3:
+            led_power_on(False)
+        else:
+            led_power_on(False)
+
     def on_activate(self):
         super().on_activate() # This will clear the screen by calling TextWindow.redraw()
 
@@ -82,6 +102,11 @@ class ColourWheelApp(TextApp):
 
         self.timer = self.periodic(
             1_000 / self.update_rate_Hz, update_screen)
+
+        self.timer_led = self.periodic(
+            1_000 / self.update_rate_Hz,
+            self.set_LED_depending_on_angle)
+
         self.window.println("Printing")
         self.window.println("acceleration ...")
 
@@ -91,6 +116,7 @@ class ColourWheelApp(TextApp):
         """
         print("Cancelling timers")
         self.timer.cancel()
+        self.timer_led.cancel()
         super().on_deactivate()
 
 main = ColourWheelApp
